@@ -8,7 +8,7 @@ from datetime import datetime, date
 
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "https://stoppage-time.herokuapp.com"}})
+CORS(app, resources={r"/*": {"origins": "*"}})
 bcrypt = Bcrypt(app)
 api_token = "56243f10d28a4f3496e19f5e2ef61f50"
 headers = {'X-Auth-Token': api_token}
