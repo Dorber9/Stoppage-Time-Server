@@ -47,7 +47,7 @@ def user():
         props['matches'] = [m for m in matches if m['status'] != 'FINISHED']
         props['results'] = [m for m in matches if m['status'] == 'FINISHED']
         todays_match = 'none'
-        for match in matches:
+        for match in props['matches']:
             utc_date = datetime.strptime(match['utcDate'], '%Y-%m-%dT%H:%M:%SZ')
             today = date.today()
             same_day = utc_date.year == today.year and utc_date.month == today.month and utc_date.day == today.day
