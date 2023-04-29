@@ -46,11 +46,16 @@ def user():
     if matches:
         props['matches'] = [m for m in matches if m['status'] != 'FINISHED']
         props['results'] = [m for m in matches if m['status'] == 'FINISHED']
-        utc_date = datetime.strptime(props['matches'][0]['utcDate'], '%Y-%m-%dT%H:%M:%SZ')
-        today = date.today()
-        same_day = utc_date.year == today.year and utc_date.month == today.month and utc_date.day == today.day
-        my_club = props['matches'][0]['homeTeam']['id'] == club_id or props['matches'][0]['awayTeam']['id'] == club_id
-        props['today'] = props['matches'][0] if same_day and my_club else 'none'
+        todays_match = 'none'
+        for match in matches:
+            utc_date = datetime.strptime(match['utcDate'], '%Y-%m-%dT%H:%M:%SZ')
+            today = date.today()
+            same_day = utc_date.year == today.year and utc_date.month == today.month and utc_date.day == today.day
+            my_club = match['homeTeam']['id'] == club_id or match['awayTeam']['id'] == club_id
+            if same_day and my_club:
+                todays_match = match
+                break
+        props['today'] = todays_match
     return props
 
 
