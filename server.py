@@ -122,8 +122,7 @@ def signin():
     if result:
         if bcrypt.check_password_hash(result['password'], password): 
             resp = make_response({"result": 'success'})
-            resp.set_cookie('username', username, domain='.stoppage-time.herokuapp.com')
-            resp.headers['Access-Control-Allow-Credentials'] = 'true'
+            resp.set_cookie('username', username)
             return resp
         else:
             to_return['result'] = 'Wrong password!'
