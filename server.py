@@ -1,19 +1,15 @@
-from flask import Flask, request, make_response, render_template, redirect, session
+from flask import Flask, request, make_response, render_template, redirect
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
 import pymongo
 import requests
 import json
 from datetime import datetime, date
-from flask_session import Session
 
 
 
 
 app = Flask(__name__)
-app.config["SESSION_PERMANENT"] = False
-app.config["SESSION_TYPE"] = "filesystem"
-Session(app)
 CORS(app, resources={r"/*": {"origins": "*"}})
 bcrypt = Bcrypt(app)
 api_token = "56243f10d28a4f3496e19f5e2ef61f50"
@@ -37,8 +33,12 @@ def clubs():
 
 @app.route("/user", methods=['GET'])
 def user():
-    username = request.cookies.get("username")
+    username = request.args.get("username")
     user = collection.find_one({"username": username})
+    if user is None:
+        # handle case where user is not found
+        return "User not found", 404
+
     returned_user = {"username": user["username"], "email": user['email'], "club": user["club_id"] }
     props = {'user': returned_user}
     club_id = user['club_id']
@@ -52,6 +52,7 @@ def user():
         my_club = props['matches'][0]['homeTeam']['id'] == club_id or props['matches'][0]['awayTeam']['id'] == club_id
         props['today'] = props['matches'][0] if same_day and my_club else 'none'
     return props
+
 
 @app.route('/check_email', methods=['GET'])
 def check_email():
@@ -126,9 +127,8 @@ def signin():
     to_return = {'result' : ''}
     if result:
         if bcrypt.check_password_hash(result['password'], password): 
-            resp = make_response({"result": 'success'})
-            session['username'] = username
-            return redirect("/")
+            resp = make_response({"result": 'success', 'username': username})
+            return resp
         else:
             to_return['result'] = 'Wrong password!'
     else:
