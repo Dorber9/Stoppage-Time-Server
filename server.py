@@ -158,7 +158,7 @@ def stats():
 
 @app.route('/get_username', methods=['GET'])
 def get_username():
-    return make_response(session_user)
+    return session_user
 
 
 
