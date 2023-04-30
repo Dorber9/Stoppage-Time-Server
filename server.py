@@ -1,4 +1,4 @@
-from flask import Flask, request, make_response, render_template, redirect
+from flask import Flask, request, make_response, session
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
 import pymongo
@@ -38,6 +38,7 @@ def user():
     if user is None:
         # handle case where user is not found
         return "User not found", 404
+    session['username'] = username
 
     returned_user = {"username": user["username"], "email": user['email'], "club": user["club_id"] }
     props = {'user': returned_user}
@@ -133,6 +134,7 @@ def signin():
     if result:
         if bcrypt.check_password_hash(result['password'], password): 
             resp = make_response({"result": 'success', 'username': username})
+            session['username'] = username
             return resp
         else:
             to_return['result'] = 'Wrong password!'
