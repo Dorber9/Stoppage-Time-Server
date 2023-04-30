@@ -5,15 +5,15 @@ import pymongo
 import requests
 import json
 from datetime import datetime, date
-
-
-
+import secrets
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 bcrypt = Bcrypt(app)
 api_token = "56243f10d28a4f3496e19f5e2ef61f50"
 headers = {'X-Auth-Token': api_token}
+app.secret_key = secrets.token_hex(16)
+
 
 
 client = pymongo.MongoClient("mongodb+srv://dorber9:tWHBsVAWzh6ZrMbX@stoppagetime.7iullij.mongodb.net/test")
