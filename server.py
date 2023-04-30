@@ -135,6 +135,7 @@ def signin():
         if bcrypt.check_password_hash(result['password'], password): 
             resp = make_response({"result": 'success', 'username': username})
             session['username'] = username
+            print(f"Session variable set to {session.get('username')}")
             return resp
         else:
             to_return['result'] = 'Wrong password!'
