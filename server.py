@@ -156,6 +156,12 @@ def stats():
     return {'standings': standings, 'scorers': scorers}
 
 
+@app.route('/get_username')
+def get_username():
+    username = session.get('username')
+    return {'username': username}
+
+
 
 
 
