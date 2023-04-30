@@ -1,4 +1,4 @@
-from flask import Flask, request, make_response, session
+from flask import Flask, request, make_response
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
 import pymongo
@@ -12,7 +12,7 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 bcrypt = Bcrypt(app)
 api_token = "56243f10d28a4f3496e19f5e2ef61f50"
 headers = {'X-Auth-Token': api_token}
-app.secret_key = secrets.token_hex(16)
+session_user = {'username': null}
 
 
 
@@ -134,7 +134,7 @@ def signin():
     if result:
         if bcrypt.check_password_hash(result['password'], password): 
             resp = make_response({"result": 'success', 'username': username})
-            session['username'] = username
+            session_user['username'] = username
             print(f"Session variable set to {session.get('username')}")
             return resp
         else:
@@ -159,9 +159,7 @@ def stats():
 
 @app.route('/get_username', methods=['GET'])
 def get_username():
-    username = session.get('username')
-    print(f'*************get_username: {username}')
-    return make_response({'username': username})
+    return make_response(session_user)
 
 
 
