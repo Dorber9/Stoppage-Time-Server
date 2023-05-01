@@ -43,7 +43,6 @@ def user():
     returned_user = {"username": user["username"], "email": user['email'], "club": user["club_id"] }
     props = {'user': returned_user}
     club_id = user['club_id']
-    print(f'*&^*&*^&*^&*^&*&^* clubID: {club_id} %^$^%&%&%^')
     matches = get_matches()
     if matches:
         props['matches'] = [m for m in matches if m['status'] != 'FINISHED']
@@ -52,8 +51,9 @@ def user():
         for match in props['matches']:
             utc_date = datetime.strptime(match['utcDate'], '%Y-%m-%dT%H:%M:%SZ')
             today = date.today()
-           
             same_day = utc_date.year == today.year and utc_date.month == today.month and utc_date.day == today.day
+            if same_day:
+                print(f'{match['homeTeam']['id']} ++++ {match['awayTeam']['id']}')
             my_club = match['homeTeam']['id'] == club_id or match['awayTeam']['id'] == club_id
             if same_day and my_club:
                 print("HEREEEEEE*******************************")
