@@ -51,7 +51,7 @@ def user():
         for match in props['matches']:
             utc_date = datetime.strptime(match['utcDate'], '%Y-%m-%dT%H:%M:%SZ')
             today = date.today()
-            print(f'****************today: {today}***********')
+            print(f'****************today: {today.year -> today.month -> today.day}***********')
             same_day = utc_date.year == today.year and utc_date.month == today.month and utc_date.day == today.day
             my_club = match['homeTeam']['id'] == club_id or match['awayTeam']['id'] == club_id
             if same_day and my_club:
