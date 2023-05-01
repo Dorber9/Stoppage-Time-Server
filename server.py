@@ -53,7 +53,7 @@ def user():
             today = date.today()
             same_day = utc_date.year == today.year and utc_date.month == today.month and utc_date.day == today.day
             if same_day:
-                print(f'{match["homeTeam"]["id"]} ++++ {match["awayTeam"]["id"]}')
+                print(f'{match["homeTeam"]["id"]} ++++ {match["awayTeam"]["id"]} +++++ {club_id}')
             my_club = match['homeTeam']['id'] == club_id or match['awayTeam']['id'] == club_id
             if same_day and my_club:
                 print("HEREEEEEE*******************************")
