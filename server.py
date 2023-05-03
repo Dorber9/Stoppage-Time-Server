@@ -121,11 +121,6 @@ def add_user():
     else:
         return {'result': 'failure'}
     
-@app.route('/logout', methods=['GET'])
-def logout():
-    resp = make_response({"logout": 'logout'})
-    resp.set_cookie('username', '', expires=0)
-    return resp
 
 @app.route('/signin', methods=['POST'])
 def signin():
