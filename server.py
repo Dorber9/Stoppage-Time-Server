@@ -23,15 +23,15 @@ collection = db["users"]
 
 @app.route("/clubs")
 def clubs():
-#     uri = 'https://api.football-data.org/v4/competitions/PD/standings'
-#     headers = {'X-Auth-Token': api_token}
-#     response = requests.get(uri, headers=headers)
-#     response_json = response.json()
-#     if 'errorCode' in response_json:
-#         return {'error': response_json['errorCode'], 'message': response_json['message']}
-#     clubs = response_json['standings'][0]['table']
-#     clubs = {item['team']['id']: item['team']['crest'] for item in clubs}
-    clubs = {81: 'https://crests.football-data.org/81.svg', 86: 'https://crests.football-data.org/86.png', 92: 'https://crests.football-data.org/92.svg', 78: 'https://crests.football-data.org/78.svg', 90: 'https://crests.football-data.org/90.png', 87: 'https://crests.football-data.org/87.svg', 77: 'https://crests.football-data.org/77.png', 94: 'https://crests.football-data.org/94.png', 89: 'https://crests.football-data.org/89.png', 79: 'https://crests.football-data.org/79.svg', 298: 'https://crests.football-data.org/298.png', 80: 'https://crests.football-data.org/80.svg', 559: 'https://crests.football-data.org/559.svg', 558: 'https://crests.football-data.org/558.svg', 250: 'https://crests.football-data.org/250.png', 264: 'https://crests.football-data.org/264.png', 82: 'https://crests.football-data.org/82.png', 267: 'https://crests.football-data.org/267.png', 95: 'https://crests.football-data.org/95.svg', 285: 'https://crests.football-data.org/285.png'}
+    uri = 'https://api.football-data.org/v4/competitions/PD/standings'
+    headers = {'X-Auth-Token': api_token}
+    response = requests.get(uri, headers=headers)
+    response_json = response.json()
+    if 'errorCode' in response_json:
+        return {'error': response_json['errorCode'], 'message': response_json['message']}
+    clubs = response_json['standings'][0]['table']
+    clubs = {item['team']['id']: item['team']['crest'] for item in clubs}
+#     clubs = {81: 'https://crests.football-data.org/81.svg', 86: 'https://crests.football-data.org/86.png', 92: 'https://crests.football-data.org/92.svg', 78: 'https://crests.football-data.org/78.svg', 90: 'https://crests.football-data.org/90.png', 87: 'https://crests.football-data.org/87.svg', 77: 'https://crests.football-data.org/77.png', 94: 'https://crests.football-data.org/94.png', 89: 'https://crests.football-data.org/89.png', 79: 'https://crests.football-data.org/79.svg', 298: 'https://crests.football-data.org/298.png', 80: 'https://crests.football-data.org/80.svg', 559: 'https://crests.football-data.org/559.svg', 558: 'https://crests.football-data.org/558.svg', 250: 'https://crests.football-data.org/250.png', 264: 'https://crests.football-data.org/264.png', 82: 'https://crests.football-data.org/82.png', 267: 'https://crests.football-data.org/267.png', 95: 'https://crests.football-data.org/95.svg', 285: 'https://crests.football-data.org/285.png'}
     return clubs
 
 
