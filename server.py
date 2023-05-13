@@ -165,7 +165,7 @@ def get_username():
     return session_user
 
 
-@app.route('/get_username', methods=['GET'])
+@app.route('/headtohead', methods=['GET'])
 def get_head_to_head():
     match_id = request.args.get('matchid')
     uri = f'https://api.football-data.org/v4/matches/{match_id}/head2head?limit=100'
