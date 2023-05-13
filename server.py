@@ -165,32 +165,6 @@ def get_username():
     return session_user
 
 
-@app.route('/headtohead', methods=['GET'])
-def get_head_to_head():
-    match_id = request.args.get('matchid')
-    uri = f'https://api.football-data.org/v4/matches/{match_id}/head2head?limit=100'
-
-
-    data = requests.get(uri, headers=headers).json()
-    if 'errorCode' in data:
-        return {"error": data['errorCode'], "message": data['message']}
-    # Extracting the information for Barcelona and Real Madrid
-    away_info = {
-        'id': data['aggregates']['awayTeam']['id'],
-        'name': data['aggregates']['awayTeam']['name'],
-        'wins': data['aggregates']['awayTeam']['wins']
-    }
-
-    home_info = {
-        'id': data['aggregates']['homeTeam']['id'],
-        'name': data['aggregates']['homeTeam']['name'],
-        'wins': data['aggregates']['homeTeam']['wins']
-    }
-
-    goals = data['aggregates']['totalGoals']
-
-    return {'home': home_info, 'away': away_info, 'goals': goals}
-
 def get_matches():
     uri = f'https://api.football-data.org/v4/competitions/2014/matches'
     response = requests.get(uri, headers=headers)
